@@ -21,12 +21,9 @@ app.use(express.static("Public"));
 //   }
 // );
 
-mongoose.connect(
-  "mongodb+srv://admin-chris:bqb81vdRUiP70m42@cluster0-sbssw.mongodb.net/todolistDB", {
-    useNewUrlParser: true
-  }
-);
-
+mongoose.connect("<mongode: connect>", {
+  useNewUrlParser: true
+});
 
 const itemsSchema = new mongoose.Schema({
   name: String
@@ -93,7 +90,8 @@ app.post("/", (req, res) => {
     // as long as the list can be visited, it indicates it is exist
     // just need match the foundList.name is same as the listTitle(listName)
     // one to many relationship
-    List.findOne({
+    List.findOne(
+      {
         name: listName
       },
       (err, foundList) => {
@@ -112,7 +110,8 @@ app.post("/delete", (req, res) => {
   const checkedItemId = req.body.checkBox;
   const listName = req.body.listName;
   if (listName === today) {
-    Item.deleteOne({
+    Item.deleteOne(
+      {
         _id: checkedItemId
       },
       (err, response) => {
@@ -128,9 +127,11 @@ app.post("/delete", (req, res) => {
     //match the list name at the condition
     //pull(delete) the  matched id query result
     //
-    List.findOneAndUpdate({
+    List.findOneAndUpdate(
+      {
         name: listName
-      }, {
+      },
+      {
         $pull: {
           items: {
             _id: checkedItemId
@@ -149,9 +150,10 @@ app.post("/delete", (req, res) => {
 });
 
 app.get("/:name", (req, res) => {
-    const customListName = _.capitalize(req.params.name);
-  List.findOne({
-      name:customListName
+  const customListName = _.capitalize(req.params.name);
+  List.findOne(
+    {
+      name: customListName
     },
     (err, foundList) => {
       if (!err) {
