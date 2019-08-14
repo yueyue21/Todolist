@@ -21,7 +21,6 @@ app.use(express.static("Public"));
 //   }
 // );
 
-
 mongoose.connect(
   "mongodb+srv://admin-chris:bqb81vdRUiP70m42@cluster0-sbssw.mongodb.net/todolistDB", {
     useNewUrlParser: true
